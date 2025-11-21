@@ -40,6 +40,15 @@ class Order < ApplicationRecord
     update!(status: 'shipped', shipped_at: Time.current)
   end
 
+   # 允许 Ransack 搜索的关联
+  def self.ransackable_associations(auth_object = nil)
+    ["address", "customer", "order_items", "payment"]
+  end
+
+  def self.ransackable_attributes(auth_object = nil)
+ %w[id status total_price grand_total created_at]
+  end
+
   private
 
   def calculate_totals
@@ -52,4 +61,5 @@ class Order < ApplicationRecord
     end
     self.grand_total = subtotal + gst_amount + pst_amount + hst_amount
   end
+
 end
