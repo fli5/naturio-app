@@ -12,7 +12,7 @@ class Product < ApplicationRecord
   validates :name, presence: true, length: { maximum: 100 }
   validates :description, presence: true
   validates :price, presence: true, 
-                    numericality: { greater_than: 0 }
+                    numericality: { greater_than_or_equal_to: 0 }
   validates :stock_quantity, numericality: { greater_than_or_equal_to: 0 }
 
   # Scopes (Feature 2.4 - Filtering)
@@ -42,5 +42,13 @@ class Product < ApplicationRecord
   def medium_image
     return unless image.attached?
     image.variant(resize_to_limit: [400, 400])
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    ["categories", "image_attachment", "image_blob", "images_attachments", "images_blobs", "order_items", "product_categories"]
+  end
+
+  def self.ransackable_attributes(auth_object = nil)
+    ["created_at", "description", "id", "is_new", "name", "on_sale", "price", "stock_quantity", "updated_at"]
   end
 end

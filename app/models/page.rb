@@ -12,4 +12,8 @@ class Page < ApplicationRecord
   def self.find_by_slug(slug)
     find_by(slug: slug)
   end
+
+   def self.ransackable_attributes(auth_object = nil)
+    ["content", "created_at", "id", "id_value", "slug", "title", "updated_at"]
+  end
 end

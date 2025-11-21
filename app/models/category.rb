@@ -11,4 +11,8 @@ class Category < ApplicationRecord
 
   # Scopes
   scope :alphabetical, -> { order(:name) }
+
+  def self.ransackable_attributes(auth_object = nil)
+    ["created_at", "description", "id", "name", "updated_at"]
+  end
 end
