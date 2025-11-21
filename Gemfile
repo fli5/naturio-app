@@ -1,9 +1,39 @@
 source "https://rubygems.org"
 
+# 前端资源
+gem "sprockets-rails", "~> 3.5"
+gem "sprockets", "~> 4.2"
+
+# CSS 框架 (Feature 4.1.5, 4.1.6)
+gem "bootstrap", "~> 5.3"
+gem "sassc-rails", "~> 2.1"
+
+# 管理后台 (Feature 1.1, 1.2)
+gem "activeadmin", "~> 3.0"
+gem "devise", "~> 4.9"
+
+# 图片处理 (Feature 1.3, 4.2.4, 5.2)
+gem "image_processing", "~> 1.2"
+gem "mini_magick", "~> 4.12"
+
+# 云存储 (Feature 5.3) - 选择一个
+gem "aws-sdk-s3", require: false
+# gem "google-cloud-storage", require: false
+
+# 分页 (Feature 2.5)
+gem "kaminari", "~> 1.2"
+
+# 支付 (Feature 3.3.1)
+gem "stripe", "~> 10.0"
+
+# 环境变量管理
+gem "dotenv-rails", "~> 2.8"
+
+
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 8.1.1"
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
-gem "propshaft"
+# gem "propshaft"
 # Use postgresql as the database for Active Record
 gem "pg", "~> 1.1"
 # Use the Puma web server [https://github.com/puma/puma]
@@ -53,11 +83,18 @@ group :development, :test do
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
 
+  # 测试数据生成 (Feature 1.6)
+  gem "faker", "~> 3.2"  
+  gem "rspec-rails", "~> 6.0"
 end
 
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+
+  gem "rubocop", "~> 1.57", require: false          # (Feature 5.4)
+  gem "rubocop-rails", "~> 2.22", require: false
+  gem "rubocop-performance", "~> 1.19", require: false
 end
 
 group :test do
