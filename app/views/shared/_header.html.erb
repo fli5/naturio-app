@@ -95,10 +95,14 @@
               </a>
               <ul class="dropdown-menu dropdown-menu-end">
                 <li>
-                  <%= link_to "My Orders", customer_orders_path, class: "dropdown-item" %>
+                  <%= link_to "Edit Account", edit_customer_registration_path, class: "dropdown-item" %>
+                </li>
+                <li><hr class="dropdown-divider"></li>
+                <li>
+                  <%= link_to "My Orders", customers_orders_path, class: "dropdown-item" %>
                 </li>
                 <li>
-                  <%= link_to "My Addresses", customer_addresses_path, class: "dropdown-item" %>
+                  <%= link_to "My Addresses", customers_addresses_path, class: "dropdown-item" %>
                 </li>
                 <li><hr class="dropdown-divider"></li>
                 <li>

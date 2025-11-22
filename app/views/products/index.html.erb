@@ -1,5 +1,5 @@
 <!-- app/views/products/index.html.erb -->
-<!-- Feature 2.1, 2.2, 2.4, 2.5 - 产品列表页 -->
+<!-- Feature 2.1, 2.2, 2.4, 2.5, 2.6-->
 
 <% content_for :title do %>
   <%= @filter_title || @current_category&.name || "All Products" %> - Northern Harvest
@@ -15,11 +15,12 @@
   <div class="row">
     <!-- Sidebar Filters -->
     <div class="col-lg-3 mb-4">
+       <%= render 'shared/search_form' %>
       <div class="card border-0 shadow-sm">
         <div class="card-body">
           <!-- Categories Filter (Feature 2.2) -->
           <h6 class="fw-bold mb-3">
-            <i class="bi bi-grid me-2"></i>Categories
+            <i class="bi bi-grid me-2"></i>Browse Categories
           </h6>
           <ul class="list-unstyled">
             <li class="mb-2">
