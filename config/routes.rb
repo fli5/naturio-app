@@ -22,6 +22,13 @@ Rails.application.routes.draw do
     sign_up: 'register'
   }
 
+namespace :customers do
+  resources :addresses, only: [:index, :new, :create, :edit, :update, :destroy]
+  resources :orders, only: [:index, :show]
+end
+
+
+
   # 其他路由...
   root 'home#index'
 
