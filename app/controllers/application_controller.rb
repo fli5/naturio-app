@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   # Changes to the importmap will invalidate the etag for HTML responses
   stale_when_importmap_changes
 
-    # Devise 配置 - 允许 username 参数
+    # Devise configuration -allow username parameter
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   protected

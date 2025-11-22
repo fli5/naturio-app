@@ -1,5 +1,4 @@
 class Address < ApplicationRecord
-  # Associations - 改为 customer
   belongs_to :customer
   belongs_to :province
   has_many :orders, dependent: :restrict_with_error

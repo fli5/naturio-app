@@ -1,5 +1,4 @@
 class Order < ApplicationRecord
-  # Associations - 改为 customer
   belongs_to :customer
   belongs_to :address
   has_many :order_items, dependent: :destroy
@@ -40,7 +39,7 @@ class Order < ApplicationRecord
     update!(status: 'shipped', shipped_at: Time.current)
   end
 
-   # 允许 Ransack 搜索的关联
+   # Associations that allow Ransack searches
   def self.ransackable_associations(auth_object = nil)
     ["address", "customer", "order_items", "payment"]
   end

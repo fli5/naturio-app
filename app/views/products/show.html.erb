@@ -1,5 +1,4 @@
-<!-- app/views/products/show.html.erb -->
-<!-- Feature 2.3 - 产品详情页 -->
+<!-- Feature 2.3 -->
 
 <% content_for :title, "#{@product.name} - Northern Harvest" %>
 
@@ -42,7 +41,7 @@
         </div>
       </div>
       
-      <!-- Thumbnail Gallery (如果有多图) -->
+      <!-- Thumbnail Gallery -->
       <% if @product.images.attached? && @product.images.count > 1 %>
         <div class="d-flex gap-2 mt-3">
           <% @product.images.each_with_index do |image, index| %>

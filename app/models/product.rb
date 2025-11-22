@@ -1,7 +1,7 @@
 class Product < ApplicationRecord
   # Active Storage (Feature 5.2)
   has_one_attached :image
-  has_many_attached :images  # 多图支持
+  has_many_attached :images  # Multi-image support
 
   # Associations (Feature 4.2.2 - Many-to-Many)
   has_many :product_categories, dependent: :destroy

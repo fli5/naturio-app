@@ -110,20 +110,17 @@ GEM
       aws-sigv4 (~> 1.5)
     aws-sigv4 (1.12.1)
       aws-eventstream (~> 1, >= 1.0.2)
+    backport (1.2.0)
     base64 (0.3.0)
     bcrypt (3.1.20)
     bcrypt_pbkdf (1.1.1)
+    benchmark (0.5.0)
     bigdecimal (3.3.1)
     bindex (0.8.1)
     bootsnap (1.19.0)
       msgpack (~> 1.2)
     bootstrap (5.3.5)
       popper_js (>= 2.11.8, < 3)
-    bootstrap-icons (1.0.15)
-      nokogiri (~> 1)
-    bootstrap-icons-helper (2.0.3)
-      bootstrap-icons (~> 1)
-      rails (>= 7.1)
     brakeman (7.1.1)
       racc
     builder (3.3.0)
@@ -202,6 +199,7 @@ GEM
       pp (>= 0.6.0)
       rdoc (>= 4.0.0)
       reline (>= 0.4.2)
+    jaro_winkler (1.6.1)
     jbuilder (2.14.1)
       actionview (>= 7.0.0)
       activesupport (>= 7.0.0)
@@ -234,6 +232,10 @@ GEM
       activerecord
       kaminari-core (= 1.2.2)
     kaminari-core (1.2.2)
+    kramdown (2.5.1)
+      rexml (>= 3.3.9)
+    kramdown-parser-gfm (1.1.0)
+      kramdown (~> 2.0)
     language_server-protocol (3.17.0.5)
     lint_roller (1.1.0)
     logger (1.7.0)
@@ -279,6 +281,7 @@ GEM
       racc (~> 1.4)
     nokogiri (1.18.10-x86_64-linux-musl)
       racc (~> 1.4)
+    observer (0.1.2)
     orm_adapter (0.5.0)
     ostruct (0.6.3)
     parallel (1.27.0)
@@ -347,6 +350,8 @@ GEM
       activerecord (>= 7.2)
       activesupport (>= 7.2)
       i18n
+    rbs (3.9.5)
+      logger
     rdoc (6.15.1)
       erb
       psych (>= 4.0.0)
@@ -357,6 +362,8 @@ GEM
     responders (3.2.0)
       actionpack (>= 7.0)
       railties (>= 7.0)
+    reverse_markdown (3.0.0)
+      nokogiri
     rexml (3.4.4)
     rspec-core (3.13.6)
       rspec-support (~> 3.13.0)
@@ -424,6 +431,27 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 4.0)
       websocket (~> 1.0)
+    solargraph (0.57.0)
+      backport (~> 1.2)
+      benchmark (~> 0.4)
+      bundler (~> 2.0)
+      diff-lcs (~> 1.4)
+      jaro_winkler (~> 1.6, >= 1.6.1)
+      kramdown (~> 2.3)
+      kramdown-parser-gfm (~> 1.1)
+      logger (~> 1.6)
+      observer (~> 0.1)
+      ostruct (~> 0.6)
+      parser (~> 3.0)
+      prism (~> 1.4)
+      rbs (>= 3.6.1, <= 4.0.0.dev.4)
+      reverse_markdown (~> 3.0)
+      rubocop (~> 1.76)
+      thor (~> 1.0)
+      tilt (~> 2.0)
+      yard (~> 0.9, >= 0.9.24)
+      yard-activesupport-concern (~> 0.0)
+      yard-solargraph (~> 0.1)
     solid_cable (3.0.12)
       actioncable (>= 7.2)
       activejob (>= 7.2)
@@ -490,6 +518,11 @@ GEM
     websocket-extensions (0.1.5)
     xpath (3.2.0)
       nokogiri (~> 1.8)
+    yard (0.9.37)
+    yard-activesupport-concern (0.0.1)
+      yard (>= 0.8)
+    yard-solargraph (0.1.0)
+      yard (~> 0.9)
     zeitwerk (2.7.3)
 
 PLATFORMS
@@ -507,7 +540,6 @@ DEPENDENCIES
   aws-sdk-s3
   bootsnap
   bootstrap (~> 5.3)
-  bootstrap-icons-helper
   brakeman
   bundler-audit
   capybara
@@ -531,6 +563,7 @@ DEPENDENCIES
   rubocop-rails-omakase
   sassc-rails (~> 2.1)
   selenium-webdriver
+  solargraph
   solid_cable
   solid_cache
   solid_queue

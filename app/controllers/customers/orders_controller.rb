@@ -5,11 +5,7 @@ module Customers
     before_action :set_order, only: [:show]
 
     def index
-      @orders = current_customer.orders
-                                .includes(:order_items, :address)
-                                .order(created_at: :desc)
-                                .page(params[:page])
-                                .per(10)
+      @orders = current_customer.orders.includes(:order_items, :address).order(created_at: :desc).page(params[:page]).per(10)
     end
 
     def show

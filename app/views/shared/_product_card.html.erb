@@ -1,5 +1,4 @@
-<!-- app/views/products/_product_card.html.erb -->
-<!-- Feature 4.1.4 - View Partial (可复用的产品卡片) -->
+<!-- Feature 4.1.4 -->
 
 <div class="card h-100 product-card border-0 shadow-sm">
   <!-- Product Image -->
@@ -28,15 +27,22 @@
       <% end %>
     </div>
     
-    <!-- Quick Add Button (显示在悬停时) -->
-    <div class="product-overlay position-absolute bottom-0 start-0 end-0 p-2 bg-dark bg-opacity-75 opacity-0">
-      <%= button_to add_to_cart_path(product), 
-          method: :post, 
-          class: "btn btn-success btn-sm w-100",
-          data: { turbo: false } do %>
-        <i class="bi bi-cart-plus me-1"></i> Add to Cart
-      <% end %>
-    </div>
+    <!-- Quick Add Button -->
+<%# 替换原有的 Quick Add Button %>
+<div class="product-overlay position-absolute bottom-0 start-0 end-0 p-2 bg-dark bg-opacity-75 opacity-0">
+  <% if product.in_stock? %>
+    <%= button_to add_to_cart_path(product), 
+        method: :post, 
+        class: "btn btn-success btn-sm w-100",
+        data: { turbo: false } do %>
+      <i class="bi bi-cart-plus me-1"></i> Add to Cart
+    <% end %>
+  <% else %>
+    <button class="btn btn-secondary btn-sm w-100" disabled>
+      Out of Stock
+    </button>
+  <% end %>
+</div>
   </div>
   
   <!-- Product Info -->
