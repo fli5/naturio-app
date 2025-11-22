@@ -1,0 +1,130 @@
+<!-- app/views/shared/_header.html.erb -->
+<!-- Feature 4.1.4 - View Partial, Feature 4.1.6 - Bootstrap -->
+
+<header>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+    <div class="container">
+      <!-- Brand Logo -->
+      <%= link_to root_path, class: "navbar-brand d-flex align-items-center" do %>
+        <i class="bi bi-leaf me-2"></i>
+        <span class="fw-bold">Northern Harvest</span>
+      <% end %>
+      
+      <!-- Mobile Toggle -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
+              data-bs-target="#navbarMain" aria-controls="navbarMain" 
+              aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      
+      <!-- Navigation Links -->
+      <div class="collapse navbar-collapse" id="navbarMain">
+        <!-- Left Side - Main Nav -->
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <%= link_to "Home", root_path, class: "nav-link #{'active' if current_page?(root_path)}" %>
+          </li>
+          
+          <!-- Categories Dropdown (Feature 2.2) -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" 
+               data-bs-toggle="dropdown" aria-expanded="false">
+              Categories
+            </a>
+            <ul class="dropdown-menu">
+              <li>
+                <%= link_to "All Products", products_path, class: "dropdown-item" %>
+              </li>
+              <li><hr class="dropdown-divider"></li>
+              <% Category.alphabetical.each do |category| %>
+                <li>
+                  <%= link_to category.name, products_path(category: category.id), class: "dropdown-item" %>
+                </li>
+              <% end %>
+            </ul>
+          </li>
+          
+          <!-- Filter Links (Feature 2.4) -->
+          <li class="nav-item">
+            <%= link_to "On Sale", products_path(filter: 'on_sale'), 
+                class: "nav-link #{'active' if params[:filter] == 'on_sale'}" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "New Arrivals", products_path(filter: 'new'), 
+                class: "nav-link #{'active' if params[:filter] == 'new'}" %>
+          </li>
+          
+          <!-- Static Pages -->
+          <li class="nav-item">
+            <%= link_to "About", page_path('about'), class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Contact", page_path('contact'), class: "nav-link" %>
+          </li>
+        </ul>
+        
+        <!-- Right Side - Search & Account -->
+        <div class="d-flex align-items-center">
+          <!-- Search Form (Feature 2.6 - 基础版，Week 4 完善) -->
+          <%= form_with url: products_path, method: :get, class: "d-flex me-3" do |f| %>
+            <%= f.text_field :search, 
+                placeholder: "Search products...", 
+                class: "form-control form-control-sm me-2",
+                value: params[:search],
+                style: "width: 180px;" %>
+            <%= f.submit "Search", class: "btn btn-outline-light btn-sm" %>
+          <% end %>
+          
+          <!-- Shopping Cart -->
+          <%= link_to cart_path, class: "btn btn-outline-light me-2 position-relative" do %>
+            <i class="bi bi-cart3"></i>
+            <% if session[:cart].present? && session[:cart].any? %>
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                <%= session[:cart].values.sum %>
+              </span>
+            <% end %>
+          <% end %>
+          
+          <!-- Customer Account -->
+          <% if customer_signed_in? %>
+            <div class="dropdown">
+              <a class="btn btn-outline-light dropdown-toggle" href="#" role="button" 
+                 data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-person-circle me-1"></i>
+                <%= current_customer.username %>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li>
+                  <%= link_to "My Orders", customer_orders_path, class: "dropdown-item" %>
+                </li>
+                <li>
+                  <%= link_to "My Addresses", customer_addresses_path, class: "dropdown-item" %>
+                </li>
+                <li><hr class="dropdown-divider"></li>
+                <li>
+                  <%= link_to "Logout", destroy_customer_session_path, 
+                      method: :delete, class: "dropdown-item" %>
+                </li>
+              </ul>
+            </div>
+          <% else %>
+            <%= link_to "Login", new_customer_session_path, class: "btn btn-outline-light me-2" %>
+            <%= link_to "Register", new_customer_registration_path, class: "btn btn-light" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </nav>
+  
+  <!-- Secondary Nav - Category Pills (Optional) -->
+  <div class="bg-light py-2 d-none d-lg-block">
+    <div class="container">
+      <div class="d-flex flex-wrap gap-2 justify-content-center">
+        <% Category.alphabetical.limit(6).each do |category| %>
+          <%= link_to category.name, products_path(category: category.id), 
+              class: "btn btn-sm #{params[:category].to_i == category.id ? 'btn-success' : 'btn-outline-success'}" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</header>
