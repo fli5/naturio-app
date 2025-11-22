@@ -1,0 +1,148 @@
+<%# Feature 3.2.1 %>
+
+<% content_for :title, "Order ##{@order.id.to_s.rjust(6, '0')} - Northern Harvest" %>
+
+<div class="container py-5">
+  <%= render 'shared/breadcrumbs', items: [
+    { name: 'Home', path: root_path },
+    { name: 'My Orders', path: customers_orders_path },
+    { name: "Order ##{@order.id.to_s.rjust(6, '0')}", path: nil }
+  ] %>
+
+  <div class="row">
+    <!-- Order Details -->
+    <div class="col-lg-8">
+      <div class="card border-0 shadow-sm mb-4">
+        <div class="card-header bg-white py-3">
+          <div class="d-flex justify-content-between align-items-center">
+            <h4 class="mb-0">Order #<%= @order.id.to_s.rjust(6, '0') %></h4>
+            <%= order_status_badge(@order.status) %>
+          </div>
+        </div>
+        <div class="card-body">
+          <!-- Order Items -->
+          <h6 class="text-muted mb-3">Items Ordered</h6>
+          <% @order_items.each do |item| %>
+            <div class="d-flex align-items-center py-3 border-bottom">
+              <!-- Product Image -->
+              <div class="me-3" style="width: 60px;">
+                <% if item.product.image.attached? %>
+                  <%= image_tag item.product.image.variant(resize_to_limit: [60, 60]), 
+                      class: "rounded", alt: item.product.name %>
+                <% else %>
+                  <div class="bg-light rounded d-flex align-items-center justify-content-center" 
+                       style="width: 60px; height: 60px;">
+                    <i class="bi bi-image text-muted"></i>
+                  </div>
+                <% end %>
+              </div>
+              
+              <!-- Product Info -->
+              <div class="flex-grow-1">
+                <%= link_to item.product.name, product_path(item.product), 
+                    class: "text-decoration-none text-dark fw-bold" %>
+                <div class="text-muted small">
+                  Qty: <%= item.quantity %> × <%= number_to_currency(item.purchase_price) %>
+                </div>
+              </div>
+              
+              <!-- Subtotal -->
+              <div class="text-end">
+                <strong><%= number_to_currency(item.subtotal) %></strong>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <!-- Shipping Address -->
+      <div class="card border-0 shadow-sm">
+        <div class="card-body">
+          <h6 class="text-muted mb-3">Shipping Address</h6>
+          <address class="mb-0">
+            <strong><%= @order.address.street_address %></strong><br>
+            <%= @order.address.city %>, <%= @order.address.province.code %><br>
+            <%= @order.address.postal_code %><br>
+            Canada
+          </address>
+        </div>
+      </div>
+    </div>
+
+    <!-- Order Summary -->
+    <div class="col-lg-4">
+      <div class="card border-0 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title mb-4">Order Summary</h5>
+          
+          <div class="d-flex justify-content-between mb-2">
+            <span class="text-muted">Subtotal</span>
+            <span><%= number_to_currency(@order.subtotal) %></span>
+          </div>
+          
+          <% if @order.gst_amount > 0 %>
+            <div class="d-flex justify-content-between mb-2">
+              <span class="text-muted">GST (<%= @order.address.province.gst_rate %>%)</span>
+              <span><%= number_to_currency(@order.gst_amount) %></span>
+            </div>
+          <% end %>
+          
+          <% if @order.pst_amount > 0 %>
+            <div class="d-flex justify-content-between mb-2">
+              <span class="text-muted">PST (<%= @order.address.province.pst_rate %>%)</span>
+              <span><%= number_to_currency(@order.pst_amount) %></span>
+            </div>
+          <% end %>
+          
+          <% if @order.hst_amount > 0 %>
+            <div class="d-flex justify-content-between mb-2">
+              <span class="text-muted">HST (<%= @order.address.province.hst_rate %>%)</span>
+              <span><%= number_to_currency(@order.hst_amount) %></span>
+            </div>
+          <% end %>
+          
+          <hr>
+          
+          <div class="d-flex justify-content-between mb-3">
+            <strong>Grand Total</strong>
+            <strong class="text-success fs-5"><%= number_to_currency(@order.grand_total) %></strong>
+          </div>
+
+          <!-- Order Info -->
+          <hr>
+          <div class="small text-muted">
+            <div class="d-flex justify-content-between mb-1">
+              <span>Order Date:</span>
+              <span><%= @order.created_at.strftime("%b %d, %Y at %l:%M %p") %></span>
+            </div>
+            <% if @order.shipped_at.present? %>
+              <div class="d-flex justify-content-between mb-1">
+                <span>Shipped:</span>
+                <span><%= @order.shipped_at.strftime("%b %d, %Y") %></span>
+              </div>
+            <% end %>
+            <% if @order.delivered_at.present? %>
+              <div class="d-flex justify-content-between mb-1">
+                <span>Delivered:</span>
+                <span><%= @order.delivered_at.strftime("%b %d, %Y") %></span>
+              </div>
+            <% end %>
+            <% if @order.stripe_payment_id.present? %>
+              <div class="d-flex justify-content-between">
+                <span>Payment ID:</span>
+                <span class="text-truncate" style="max-width: 120px;">
+                  <%= @order.stripe_payment_id %>
+                </span>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <!-- Back Button -->
+      <div class="d-grid mt-3">
+        <%= link_to "Back to Orders", customers_orders_path, class: "btn btn-outline-secondary" %>
+      </div>
+    </div>
+  </div>
+</div>
