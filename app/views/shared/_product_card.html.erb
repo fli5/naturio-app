@@ -1,5 +1,4 @@
-<!-- app/views/products/_product_card.html.erb -->
-<!-- Feature 4.1.4 - View Partial (可复用的产品卡片) -->
+<!-- Feature 4.1.4 -->
 
 <div class="card h-100 product-card border-0 shadow-sm">
   <!-- Product Image -->
@@ -28,7 +27,7 @@
       <% end %>
     </div>
     
-    <!-- Quick Add Button (显示在悬停时) -->
+    <!-- Quick Add Button -->
     <div class="product-overlay position-absolute bottom-0 start-0 end-0 p-2 bg-dark bg-opacity-75 opacity-0">
       <%= button_to add_to_cart_path(product), 
           method: :post, 

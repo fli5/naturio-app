@@ -24,9 +24,9 @@ class Customer < ApplicationRecord
     username
   end
 
-   # 明确指定哪些字段可搜索
+   # Explicitly specify which fields are searchable
   def self.ransackable_attributes(auth_object = nil)
-    # 只列出你希望在 ActiveAdmin / Ransack 中可搜索的字段
+    # List only the fields you want searchable in ActiveAdmin/Ransack
     ["id", "email", "username", "created_at", "updated_at"]
   end
 end

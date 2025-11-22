@@ -15,41 +15,24 @@ Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 
-  # Customer 使用独立的 Devise 路由
+  # Customer uses independent Devise routing
   devise_for :customers, path: '', path_names: {
     sign_in: 'login',
     sign_out: 'logout',
     sign_up: 'register'
   }
 
-namespace :customers do
-  resources :addresses, only: [:index, :new, :create, :edit, :update, :destroy]
-  resources :orders, only: [:index, :show]
-end
-
-
-
-  # 其他路由...
-  root 'home#index'
-
   # ============================================
-  # Products (Feature 2.1, 2.2, 2.3, 2.4, 2.5, 2.6)
+  # Customer Orders (Feature 3.2.1)
   # ============================================
+  namespace :customers do
+    resources :addresses, only: [:index, :new, :create, :edit, :update, :destroy]
+    resources :orders, only: [:index, :show]
+  end
+
   resources :products, only: [:index, :show]
-
-  # ============================================
-  # Categories
-  # ============================================
   resources :categories, only: [:index, :show]
 
-  # ============================================
-  # Static Pages (Feature 1.4 - About/Contact)
-  # ============================================
-  get '/pages/:slug', to: 'pages#show', as: :page
-
-  # ============================================
-  # Shopping Cart (Week 6)
-  # ============================================
   resource :cart, only: [:show] do
     post 'add/:product_id', to: 'carts#add', as: :add_to
     patch 'update/:product_id', to: 'carts#update', as: :update_item
@@ -58,7 +41,7 @@ end
   end
 
   # ============================================
-  # Checkout & Orders (Week 7)
+  # Checkout & Orders
   # ============================================
   resource :checkout, only: [:show, :create] do
     get 'address', to: 'checkouts#address'
@@ -68,20 +51,15 @@ end
   end
 
   # ============================================
-  # Customer Orders (Feature 3.2.1)
-  # ============================================
-  namespace :customer do
-    resources :orders, only: [:index, :show]
-    resources :addresses, except: [:show]
-  end
-
-  # ============================================
-  # Payments Webhook (Week 8)
+  # Payments Webhook
   # ============================================
   post '/webhooks/stripe', to: 'webhooks#stripe'
 
   # ============================================
-  # Health Check (for deployment)
+  # Health Check
   # ============================================
   get '/health', to: proc { [200, {}, ['OK']] }
+  get '/pages/:slug', to: 'pages#show', as: :page
+
+  root 'home#index'
 end
