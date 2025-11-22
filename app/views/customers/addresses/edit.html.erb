@@ -1,0 +1,24 @@
+<%# ============================================ %>
+<%# app/views/customer/addresses/edit.html.erb %>
+<%# ============================================ %>
+
+<% content_for :title, "Edit Address - Northern Harvest" %>
+
+<div class="container py-5">
+  <%= render 'shared/breadcrumbs', items: [
+    { name: 'Home', path: root_path },
+    { name: 'My Addresses', path: customers_addresses_path },
+    { name: 'Edit Address', path: nil }
+  ] %>
+
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="card border-0 shadow">
+        <div class="card-body p-5">
+          <h2 class="mb-4">Edit Address</h2>
+          <%= render 'form', address: @address %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
