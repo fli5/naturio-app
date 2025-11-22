@@ -1,0 +1,41 @@
+<!-- app/views/shared/_flash.html.erb -->
+<!-- Feature 4.1.4 - View Partial, Feature 4.2.3 - Flash Messages -->
+
+<% if flash.any? %>
+  <div class="container mt-3">
+    <% flash.each do |type, message| %>
+      <%
+        # Map flash types to Bootstrap alert classes
+        alert_class = case type.to_s
+                      when 'notice', 'success'
+                        'alert-success'
+                      when 'alert', 'error'
+                        'alert-danger'
+                      when 'warning'
+                        'alert-warning'
+                      else
+                        'alert-info'
+                      end
+        
+        # Map flash types to Bootstrap icons
+        icon_class = case type.to_s
+                     when 'notice', 'success'
+                       'bi-check-circle-fill'
+                     when 'alert', 'error'
+                       'bi-exclamation-triangle-fill'
+                     when 'warning'
+                       'bi-exclamation-circle-fill'
+                     else
+                       'bi-info-circle-fill'
+                     end
+      %>
+      
+      <div class="alert <%= alert_class %> alert-dismissible fade show d-flex align-items-center" 
+           role="alert">
+        <i class="bi <%= icon_class %> me-2"></i>
+        <div><%= message %></div>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    <% end %>
+  </div>
+<% end %>

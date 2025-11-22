@@ -1,0 +1,25 @@
+<!-- app/views/shared/_breadcrumbs.html.erb -->
+<!-- Feature 4.1.3 - Location-based Breadcrumbs (up to 3 levels) -->
+
+<% if items.present? %>
+  <nav aria-label="breadcrumb" class="mb-4">
+    <ol class="breadcrumb">
+      <% items.each_with_index do |item, index| %>
+        <% next if item[:name].blank? %>
+        
+        <% if item[:path].present? && index < items.length - 1 %>
+          <!-- Clickable breadcrumb item -->
+          <li class="breadcrumb-item">
+            <%= link_to item[:name], item[:path], class: "text-decoration-none text-success" %>
+          </li>
+        <% else %>
+          <!-- Current page (not clickable) -->
+          <li class="breadcrumb-item active" aria-current="page">
+            <%= truncate(item[:name], length: 40) %>
+          </li>
+        <% end %>
+      <% end %>
+    </ol>
+  </nav>
+<% end %>
+

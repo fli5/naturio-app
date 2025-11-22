@@ -1,0 +1,76 @@
+<!-- app/views/products/_product_card.html.erb -->
+<!-- Feature 4.1.4 - View Partial (可复用的产品卡片) -->
+
+<div class="card h-100 product-card border-0 shadow-sm">
+  <!-- Product Image -->
+  <div class="position-relative">
+    <%= link_to product_path(product) do %>
+      <% if product.image.attached? %>
+        <%= image_tag url_for(product.image),width:300, 
+            class: "card-img-top", 
+            alt: product.name,
+            style: "height: 200px; object-fit: cover;" %>
+      <% else %>
+        <div class="card-img-top bg-light d-flex align-items-center justify-content-center" 
+             style="height: 200px;">
+          <i class="bi bi-image text-muted" style="font-size: 3rem;"></i>
+        </div>
+      <% end %>
+    <% end %>
+    
+    <!-- Badges -->
+    <div class="position-absolute top-0 start-0 p-2">
+      <% if product.on_sale? %>
+        <span class="badge bg-danger me-1">Sale</span>
+      <% end %>
+      <% if product.is_new? %>
+        <span class="badge bg-warning text-dark">New</span>
+      <% end %>
+    </div>
+    
+    <!-- Quick Add Button (显示在悬停时) -->
+    <div class="product-overlay position-absolute bottom-0 start-0 end-0 p-2 bg-dark bg-opacity-75 opacity-0">
+      <%= button_to add_to_cart_path(product), 
+          method: :post, 
+          class: "btn btn-success btn-sm w-100",
+          data: { turbo: false } do %>
+        <i class="bi bi-cart-plus me-1"></i> Add to Cart
+      <% end %>
+    </div>
+  </div>
+  
+  <!-- Product Info -->
+  <div class="card-body">
+    <!-- Categories -->
+    <div class="mb-2">
+      <% product.categories.limit(2).each do |category| %>
+        <%= link_to category.name, products_path(category: category.id), 
+            class: "badge bg-light text-success text-decoration-none me-1" %>
+      <% end %>
+    </div>
+    
+    <!-- Product Name -->
+    <h6 class="card-title mb-2">
+      <%= link_to product.name, product_path(product), 
+          class: "text-dark text-decoration-none stretched-link" %>
+    </h6>
+    
+    <!-- Price -->
+    <div class="d-flex justify-content-between align-items-center">
+      <span class="h5 mb-0 text-success fw-bold">
+        <%= number_to_currency(product.price) %>
+      </span>
+      
+      <!-- Stock Status -->
+      <% if product.in_stock? %>
+        <small class="text-muted">
+          <i class="bi bi-check-circle text-success"></i> In Stock
+        </small>
+      <% else %>
+        <small class="text-danger">
+          <i class="bi bi-x-circle"></i> Out of Stock
+        </small>
+      <% end %>
+    </div>
+  </div>
+</div>
