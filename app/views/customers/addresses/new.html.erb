@@ -1,0 +1,24 @@
+<%# ============================================ %>
+<%# app/views/customer/addresses/new.html.erb %>
+<%# ============================================ %>
+
+<% content_for :title, "Add Address - Northern Harvest" %>
+
+<div class="container py-5">
+  <%= render 'shared/breadcrumbs', items: [
+    { name: 'Home', path: root_path },
+    { name: 'My Addresses', path: customers_addresses_path },
+    { name: 'New Address', path: nil }
+  ] %>
+
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="card border-0 shadow">
+        <div class="card-body p-5">
+          <h2 class="mb-4">Add New Address</h2>
+          <%= render 'form', address: @address %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

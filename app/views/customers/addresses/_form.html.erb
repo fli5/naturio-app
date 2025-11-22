@@ -1,0 +1,70 @@
+<%# ============================================ %>
+<%# app/views/customer/addresses/_form.html.erb %>
+<%# Feature 3.1.5 - 地址表单（含省份下拉）%>
+<%# ============================================ %>
+
+<%= form_with model: [:customers, address], local: true do |f| %>
+  <% if address.errors.any? %>
+    <div class="alert alert-danger">
+      <ul class="mb-0">
+        <% address.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <!-- Address Type -->
+  <div class="mb-3">
+    <%= f.label :address_type, class: "form-label" %>
+    <%= f.select :address_type, 
+        [['Shipping Address', 'shipping'], ['Billing Address', 'billing']],
+        {},
+        class: "form-select" %>
+  </div>
+
+  <!-- Street Address -->
+  <div class="mb-3">
+    <%= f.label :street_address, class: "form-label" %>
+    <%= f.text_field :street_address, 
+        class: "form-control #{'is-invalid' if address.errors[:street_address].any?}",
+        placeholder: "123 Main Street, Apt 4B",
+        required: true %>
+  </div>
+
+  <!-- City -->
+  <div class="mb-3">
+    <%= f.label :city, class: "form-label" %>
+    <%= f.text_field :city, 
+        class: "form-control #{'is-invalid' if address.errors[:city].any?}",
+        placeholder: "Winnipeg",
+        required: true %>
+  </div>
+
+  <!-- Province (Feature 3.1.5 核心要求) -->
+  <div class="mb-3">
+    <%= f.label :province_id, "Province / Territory", class: "form-label" %>
+    <%= f.collection_select :province_id, @provinces, :id, :name,
+        { prompt: "Select a province..." },
+        { class: "form-select #{'is-invalid' if address.errors[:province_id].any?}", required: true } %>
+    <div class="form-text">Tax rates are determined by your province</div>
+  </div>
+
+  <!-- Postal Code -->
+  <div class="mb-4">
+    <%= f.label :postal_code, class: "form-label" %>
+    <%= f.text_field :postal_code, 
+        class: "form-control #{'is-invalid' if address.errors[:postal_code].any?}",
+        placeholder: "R3C 1A5",
+        pattern: "[A-Za-z]\\d[A-Za-z][ -]?\\d[A-Za-z]\\d",
+        required: true %>
+    <div class="form-text">Format: A1A 1A1</div>
+  </div>
+
+  <!-- Submit -->
+  <div class="d-grid gap-2">
+    <%= f.submit address.persisted? ? "Update Address" : "Save Address", 
+        class: "btn btn-success btn-lg" %>
+    <%= link_to "Cancel", customers_addresses_path, class: "btn btn-outline-secondary" %>
+  </div>
+<% end %>
