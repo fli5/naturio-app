@@ -1,34 +1,33 @@
 source "https://rubygems.org"
 
-# 前端资源
+# Front-end resources
 gem "sprockets-rails", "~> 3.5"
 gem "sprockets", "~> 4.2"
 
-# CSS 框架 (Feature 4.1.5, 4.1.6)
+# CSS framework (Feature 4.1.5, 4.1.6)
 gem "bootstrap", "~> 5.3"
 gem "sassc-rails", "~> 2.1"
 
-# 管理后台 (Feature 1.1, 1.2)
+# Management background (Feature 1.1, 1.2)
 gem "activeadmin", "~> 3.0"
 gem "devise", "~> 4.9"
 
-# 图片处理 (Feature 1.3, 4.2.4, 5.2)
+# Image processing (Feature 1.3, 4.2.4, 5.2)
 gem "image_processing", "~> 1.2"
 gem "mini_magick", "~> 4.12"
 
-# 云存储 (Feature 5.3) - 选择一个
+# cloud storage (Feature 5.3) 
 gem "aws-sdk-s3", require: false
 # gem "google-cloud-storage", require: false
 
-# 分页 (Feature 2.5)
+# Pagination (Feature 2.5)
 gem "kaminari", "~> 1.2"
 
-# 支付 (Feature 3.3.1)
+# pay (Feature 3.3.1)
 gem "stripe", "~> 10.0"
 
-# 环境变量管理
+# Environment variable management
 gem "dotenv-rails", "~> 2.8"
-
 
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
