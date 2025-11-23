@@ -47,7 +47,7 @@
                   <%= number_to_currency(order.grand_total) %>
                 </td>
                 <td class="text-end">
-                  <%= link_to "View Details", customer_order_path(order), 
+                  <%= link_to "View Details", customers_order_path(order), 
                       class: "btn btn-sm btn-outline-success" %>
                 </td>
               </tr>
@@ -59,7 +59,7 @@
 
     <!-- Pagination -->
     <div class="d-flex justify-content-center mt-4">
-      <%= paginate @orders, theme: 'bootstrap-5' %>
+      <%= paginate @orders %>
     </div>
   <% else %>
     <div class="text-center py-5">
