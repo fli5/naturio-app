@@ -155,7 +155,7 @@
             <!-- Checkout Button -->
             <div class="d-grid">
               <% if customer_signed_in? %>
-                <%= link_to checkout_path, class: "btn btn-success btn-lg" do %>
+                <%= link_to checkouts_path, class: "btn btn-success btn-lg" do %>
                   <i class="bi bi-lock-fill me-1"></i> Proceed to Checkout
                 <% end %>
               <% else %>

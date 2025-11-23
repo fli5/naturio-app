@@ -43,7 +43,7 @@ Rails.application.routes.draw do
   # ============================================
   # Checkout & Orders
   # ============================================
-  resource :checkout, only: [:show, :create] do
+  resource :checkouts, only: [:show, :create] do
     get 'address', to: 'checkouts#address'
     post 'address', to: 'checkouts#save_address'
     get 'review', to: 'checkouts#review'

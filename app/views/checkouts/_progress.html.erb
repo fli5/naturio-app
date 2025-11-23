@@ -1,0 +1,99 @@
+<%# ============================================ %>
+<%# app/views/checkouts/_progress.html.erb %>
+<%# 结账进度条 %>
+<%# ============================================ %>
+
+<div class="checkout-progress mb-5">
+  <div class="row text-center">
+    <div class="col-4">
+      <div class="step <%= 'active' if step >= 1 %> <%= 'completed' if step > 1 %>">
+        <div class="step-icon">
+          <% if step > 1 %>
+            <i class="bi bi-check-lg"></i>
+          <% else %>
+            <span>1</span>
+          <% end %>
+        </div>
+        <div class="step-label">Address</div>
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="step <%= 'active' if step >= 2 %> <%= 'completed' if step > 2 %>">
+        <div class="step-icon">
+          <% if step > 2 %>
+            <i class="bi bi-check-lg"></i>
+          <% else %>
+            <span>2</span>
+          <% end %>
+        </div>
+        <div class="step-label">Review</div>
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="step <%= 'active' if step >= 3 %>">
+        <div class="step-icon">
+          <% if step >= 3 %>
+            <i class="bi bi-check-lg"></i>
+          <% else %>
+            <span>3</span>
+          <% end %>
+        </div>
+        <div class="step-label">Complete</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.checkout-progress .step {
+  position: relative;
+}
+
+.checkout-progress .step-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #e9ecef;
+  color: #6c757d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 0.5rem;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.checkout-progress .step.active .step-icon {
+  background-color: #198754;
+  color: white;
+}
+
+.checkout-progress .step.completed .step-icon {
+  background-color: #198754;
+  color: white;
+}
+
+.checkout-progress .step-label {
+  font-size: 0.875rem;
+  color: #6c757d;
+}
+
+.checkout-progress .step.active .step-label {
+  color: #198754;
+  font-weight: 600;
+}
+
+.checkout-progress .col-4:not(:last-child) .step::after {
+  content: '';
+  position: absolute;
+  top: 20px;
+  left: 60%;
+  width: 80%;
+  height: 2px;
+  background-color: #e9ecef;
+}
+
+.checkout-progress .col-4:not(:last-child) .step.completed::after {
+  background-color: #198754;
+}
+</style>
