@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  app:
+  web-app:
     build:
       context: ..
       dockerfile: .devcontainer/Dockerfile
@@ -16,30 +16,30 @@ services:
       - rails_network
     
     environment:
-      DB_HOST: db
+      DB_HOST: web-postgres
       DB_USERNAME: postgres
       DB_PASSWORD: password
       DB_NAME: naturio_development
       RAILS_ENV: development
 
     depends_on:
-      - db
-      - sonarqube
+      - web-postgres
+      - sonar-server
 
-  db:
+  web-postgres:
     image: postgres:15
     restart: unless-stopped
     networks:
       - rails_network
     volumes:
-      - postgres-data:/var/lib/postgresql
+      - ./postgres-data:/var/lib/postgresql/data
       - ./create-db-user.sql:/docker-entrypoint-initdb.d/create-db-user.sql
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
       POSTGRES_DB: naturio_development
 
-  sonarqube:
+  sonar-server:
     image: sonarqube:community
     container_name: sonarqube
     restart: unless-stopped
@@ -68,7 +68,6 @@ services:
       - sonar-db:/var/lib/postgresql
 
 volumes:
-  postgres-data:
   sonar-db:
 
 networks:
